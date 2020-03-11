@@ -1,0 +1,20 @@
+.close
+  width 40px
+  height 40px
+  position relative
+  cursor pointer
+
+  &__line
+    width 80%
+    height 1px
+    background-color $primary
+    position absolute
+    top 50%
+    left 50%
+
+    &:first-of-type
+      transform translate(-50%, -50%) rotate(45deg)
+
+
+    &:last-of-type
+      transform translate(-50%, -50%) rotate(-45deg)

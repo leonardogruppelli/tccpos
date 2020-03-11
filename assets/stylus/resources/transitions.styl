@@ -1,0 +1,34 @@
+.sidebar-enter-active
+.sidebar-leave-active
+  transition transform 0.1s ease-out
+
+.sidebar-enter
+.sidebar-leave-to
+  transform translateX(-100%)
+
+.settings-enter-active
+.settings-leave-active
+  transition opacity 0.1s ease-out, transform 0.1s linear
+
+.settings-enter
+.settings-leave-to
+  opacity 0
+  transform scale(0.9)
+
+.modal-enter-active
+.modal-leave-active
+  transition opacity 0.2s ease-out, transform 0.1s linear
+
+.modal-enter
+.modal-leave-to
+  opacity 0
+  transform scale(0.8)
+
+.select-enter-active
+.select-leave-active
+  transition opacity 0.1s linear, transform 0.2s ease-out
+
+.select-enter
+.select-leave-to
+  opacity 0
+  transform scaleY(0.8)

@@ -1,0 +1,92 @@
+.table
+  display flex
+  flex-direction row
+
+  &__container
+    flex 1
+    overflow auto
+
+  &__actions
+    min-width 50px
+    position relative
+    margin-left -1px
+    border-left 1px solid $quaternary
+    z-index 1
+
+    &__list
+      width 100%
+      border solid $quaternary
+      border-width 1px 1px 0 0
+      overflow auto
+
+    &__item
+      height 45px
+      display flex
+      border-bottom 1px solid $quaternary
+      white-space nowrap
+      transition background 0.2s linear
+
+      &--add
+        height 50px
+
+      &:not(&--add):nth-of-type(odd)
+        background-color $quinary
+
+      button
+      a
+        height 100%
+        display flex
+        flex 1
+        padding rem(5 10)
+        align-items center
+        justify-content center
+        cursor pointer
+
+        &:not(:last-of-type)
+          border-right 1px solid $quaternary
+
+        &:hover
+          svg
+            transform scale(1.2)
+
+        svg
+          transition transform 0.1s ease-out
+
+          &.add
+            font-size rem(24)
+            color $primary
+
+          &.edit
+            color $warning
+
+          &.delete
+            color $error
+
+table
+  width 100%
+  border-collapse collapse
+  font-size rem(14)
+  text-align left
+  +above(l)
+    font-size rem(16)
+
+  tbody
+    tr:nth-of-type(even)
+      background-color $quinary
+
+  th
+  td
+    padding rem(10 20)
+    border 1px solid $quaternary
+    font-size rem(14)
+    white-space nowrap
+
+  th
+    height 50px
+    @extend .montserrat
+    color $primary
+    text-transform uppercase
+
+  td
+    height 45px
+    color $black

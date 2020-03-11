@@ -1,0 +1,29 @@
+.profile
+  display flex
+  flex-direction row
+  align-items center
+  position relative
+  cursor pointer
+
+  &__name
+    display none
+    color $black
+    text-transform none
+    +above(l)
+      display block
+
+  &__image
+    width 35px
+    height 35px
+    margin 0 15px
+    border-radius 50%
+    +above(l)
+      width 50px
+      height 50px
+
+  &__icon
+    color $primary
+    transition transform 0.1s ease-out
+
+    &--active
+      transform rotate(90deg)

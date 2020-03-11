@@ -1,0 +1,16 @@
+.form
+  display grid
+  grid-template-columns 1fr
+  grid-template-rows auto
+  grid-column-gap rem(20)
+  grid-row-gap rem(10)
+
+  &--two
+    +above(m)
+      grid-template-columns 1fr 1fr
+    
+  &--three
+    +above(m)
+      grid-template-columns 1fr 1fr
+    +above(l)
+      grid-template-columns 1fr 1fr 1fr

@@ -1,0 +1,34 @@
+$primary = #00a2ff
+$secondary = #bfbfbf
+$terciary = #b5b5b5
+$quaternary = #f6f6f6
+$quinary = #f9f9f9
+
+$success = #30f21b
+$error = #fa513e
+$warning = #eddb34
+$info = #326ef0
+
+$white = #fff
+$black = #333
+
+colors = {
+  primary: $primary,
+  secondary: $secondary,
+  terciary: $terciary,
+  quaternary: $quaternary,
+  quinary: $quinary,
+  success: $success,
+  error: $error,
+  warning: $warning,
+  info: $info,
+  white: $black,
+  black: $black
+}
+
+for key, value in colors
+  .bg-{key}
+    background-color value
+
+  .c-{key}
+    color value

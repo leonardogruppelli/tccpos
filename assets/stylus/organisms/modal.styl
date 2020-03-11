@@ -1,0 +1,40 @@
+.modal
+  width 90%
+  max-width 768px
+  background-color $black
+  border-radius 8px
+
+  &__wrapper
+    width 100%
+    height 100%
+    display flex
+    align-items center
+    justify-content center
+    position fixed
+    top 0
+    left 0
+    background-color transparent
+    z-index 3
+
+  &__header
+  &__body
+    padding rem(15)
+    background-color transparent
+
+  &__header
+    display flex
+    flex-direction row
+    align-items center
+    border-bottom 1px solid $terciary
+
+    h4
+      flex 1
+      color $quaternary
+
+    button
+      padding rem(5)
+      color $error
+      cursor pointer
+
+      i
+        font-size rem(30)

@@ -1,0 +1,117 @@
+.control
+  padding-top rem(10)
+
+  &__wrapper
+    position relative
+  
+  &__input
+    height 35px
+    display flex
+    flex-direction row
+    border-bottom 1px solid $secondary
+    cursor text
+
+    ~/--select &
+      cursor pointer
+
+      input
+        cursor pointer
+
+    &:after
+      content ''
+      width 100%
+      height 1px
+      background-color $primary
+      position absolute
+      top calc(100% - 1px)
+      left 0
+      opacity 0
+      transform-origin 50% 50%
+      transform scaleX(0.4)
+      transition opacity 0.1s linear, transform 0.2s ease-out, background-color 0.3s ease
+
+    input
+      flex 1
+      font-size rem(14)
+      color $terciary
+
+    &__label
+      position absolute
+      top 50%
+      left 0
+      transform translateY(-50%)
+      font-size rem(14)
+      color $terciary
+      cursor text
+      transition 0.1s ease-out
+
+      &--offset
+        left 25px
+
+    &__icon
+      display flex
+      align-items center
+
+      &--prefix
+        width 25px
+
+      svg
+        color $terciary
+        transition color 0.2s ease-in
+
+        &.loading
+          animation loading 1s linear infinite
+
+    &--focused
+    &--filled
+
+      &:after
+        opacity 1
+        transform scaleX(1)
+
+      & ^[1]__label
+        font-size rem(10)
+        top 0
+        transform translateY(calc(-100% + 5px))
+
+    &--error
+
+      &:after
+        background-color $error
+
+      & ^[1]__label
+        color $error
+
+  &__dropdown
+    width 100%
+    padding rem(10 0)
+    background-color $white
+    box-shadow 0 3px 10px rgba($black, 0.1)
+    border-bottom-left-radius 8px
+    border-bottom-right-radius 8px
+    position absolute
+    top 100%
+    left 0
+    transform-origin 0 0
+    overflow hidden
+    z-index 1
+
+    &__item
+      padding rem(10 20)
+      font-size rem(12)
+      color $terciary
+      white-space nowrap
+      text-overflow ellipsis
+      overflow hidden
+      cursor pointer
+      transition 0.2s ease-in
+
+      &--selected
+      &:hover
+        background-color $quaternary
+        color $primary
+
+  &__error
+    margin-top 5px
+    font-size rem(10)
+    color $error
