@@ -1,6 +1,6 @@
-# nuxtql
+# TCC POS
 
-> Nuxt.js App with GraphQL
+> TCC POS ADMIN
 
 ## Build Setup
 
