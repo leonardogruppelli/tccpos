@@ -10,13 +10,20 @@
                 <th>E-mail</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-if="users.length">
               <tr
                 v-for="user in users"
                 :key="user.id"
               >
                 <td>{{ user.full_name }}</td>
                 <td>{{ user.email }}</td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <td colspan="100%">
+                  no results were found...
+                </td>
               </tr>
             </tbody>
           </table>
@@ -41,7 +48,7 @@
               <nuxt-link :to="`/users/update/${user.id}`">
                 <icon
                   icon="pen"
-                  class="edit"
+                  class="c-warning"
                 />
               </nuxt-link>
 
@@ -51,7 +58,7 @@
               >
                 <icon
                   icon="trash"
-                  class="delete"
+                  class="c-error"
                 />
               </button>
             </li>
@@ -77,7 +84,7 @@ export default {
 	methods: {
 		async remove(id, index) {
 			if(confirm('Are you sure you want to delete this user?')){
-				const response = await this.$delete(`/users/${id}`)
+				const response = await this.$remove(`/users/${id}`)
 
 				if (response) {
 					this.users.splice(index, 1)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="Create Condominium">
+    <panel title="Update condominium">
       <validation-observer
         @submit="update"
         ref="observer"
@@ -47,13 +47,12 @@
         </validation-provider>
       </validation-observer>
 
-      <nuxt-link to="/condominiums">
-        <knob
-          title="Back"
-          background="black"
-          icon="arrow-left"
-        />
-      </nuxt-link>
+      <knob
+        @click.native="$router.go(-1)"
+        title="Back"
+        background="black"
+        icon="arrow-left"
+      />
 
       <knob
         @click.native="update"

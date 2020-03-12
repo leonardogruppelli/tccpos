@@ -1,7 +1,9 @@
 export default ({ $axios, error }, inject) => {
+	const url = process.env.API || 'http://localhost:3333/api/v1'
+
 	inject('get', async (endpoint, main = false) => {
 		try {
-			const response = await $axios.$get(endpoint)
+			const response = await $axios.$get(url + endpoint)
 
 			return response
 		} catch (err) {
@@ -20,7 +22,7 @@ export default ({ $axios, error }, inject) => {
   
 	inject('post', async (endpoint, data, main = false) => {
 		try {
-			const response = await $axios.$post(endpoint, data)
+			const response = await $axios.$post(url + endpoint, data)
 
 			return response
 		} catch (err) {
@@ -39,7 +41,7 @@ export default ({ $axios, error }, inject) => {
   
 	inject('put', async (endpoint, data, main = false) => {
 		try {
-			const response = await $axios.$put(endpoint, data)
+			const response = await $axios.$put(url + endpoint, data)
 
 			return response
 		} catch (err) {
@@ -56,9 +58,9 @@ export default ({ $axios, error }, inject) => {
 		}
 	})
   
-	inject('delete', async (endpoint, main = false) => {
+	inject('remove', async (endpoint, main = false) => {
 		try {
-			const response = await $axios.$delete(endpoint)
+			const response = await $axios.$delete(url + endpoint)
 
 			return response
 		} catch (err) {

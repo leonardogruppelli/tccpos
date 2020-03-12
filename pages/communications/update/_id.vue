@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="Update user">
+    <panel title="Update communication">
       <validation-observer
         @submit="update"
         ref="observer"
@@ -12,22 +12,9 @@
           rules="required"
         >
           <control
-            v-model="form.full_name"
-            label="name"
-            prefix="pen"
-            :classes="classes"
-            :error="errors[0]"
-          />
-        </validation-provider>
-
-        <validation-provider
-          v-slot="{ classes, errors }"
-          rules="required|email"
-        >
-          <control
-            v-model="form.email"
-            label="email"
-            prefix="at"
+            v-model="form.title"
+            label="title"
+            prefix="heading"
             :classes="classes"
             :error="errors[0]"
           />
@@ -38,10 +25,9 @@
           rules="required"
         >
           <control
-            v-model="form.identifier"
-            mask="###.###.###-##"
-            label="identifier"
-            prefix="id-card"
+            v-model="form.description"
+            label="description"
+            prefix="align-justify"
             :classes="classes"
             :error="errors[0]"
           />
@@ -84,9 +70,8 @@ export default {
 	data() {
 		return {
 			form: {
-				full_name: null,
-				email: null,
-				identifier: null
+				title: null,
+				description: null
 			},
 			loading: false
 		}
@@ -102,29 +87,29 @@ export default {
         
 				const { id } = this.$route.params
 
-				const response = await this.$put(`/users/${id}`, this.form)
+				const response = await this.$put(`/communications/${id}`, this.form)
 
 				if (response) {
 					this.$refs.observer.reset()
-					this.$router.push('/users')
+					this.$router.push('/communications')
 				}
       
 				this.loading = false
 			} catch (error) {
 				console.log(error)
 			}
+			
 		}
 	},
 	async asyncData({ app, route }) {
 		const { id } = route.params
 
-		const user = await app.$get(`/users/${id}`)
+		const communication = await app.$get(`/communications/${id}`)
     
 		return {
 			form: {
-				full_name: user.full_name,
-				email: user.email,
-				identifier: user.identifier
+				title: communication.title,
+				description: communication.description
 			}
 		}
 	}

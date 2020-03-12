@@ -1,24 +1,20 @@
 <template>
   <div>
-    <panel title="Condominiums">
+    <panel title="Apartments">
       <div class="table">
         <div class="table__container">
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone</th>
+                <th>Description</th>
               </tr>
             </thead>
-            <tbody v-if="condominiums.length">
+            <tbody v-if="apartments.length">
               <tr
-                v-for="condominium in condominiums"
-                :key="condominium.id"
+                v-for="apartment in apartments"
+                :key="apartment.id"
               >
-                <td>{{ condominium.name }}</td>
-                <td>{{ condominium.address }}</td>
-                <td>{{ condominium.tel }}</td>
+                <td>{{ apartment.description }}</td>
               </tr>
             </tbody>
             <tbody v-else>
@@ -30,11 +26,11 @@
             </tbody>
           </table>
         </div>
-
+        
         <div class="table__actions">
           <ul class="table__actions__list">
             <li class="table__actions__item table__actions__item--add">
-              <nuxt-link to="/condominiums/create">
+              <nuxt-link :to="`/apartments/create/${$route.params.block}`">
                 <icon
                   icon="plus"
                   class="add"
@@ -43,11 +39,11 @@
             </li>
 
             <li
-              v-for="(condominium, index) in condominiums"
-              :key="condominium.id"
+              v-for="(apartment, index) in apartments"
+              :key="apartment.id"
               class="table__actions__item"
             >
-              <nuxt-link :to="`/condominiums/update/${condominium.id}`">
+              <nuxt-link :to="`/apartments/update/${$route.params.block}/${apartment.id}`">
                 <icon
                   icon="pen"
                   class="c-warning"
@@ -55,8 +51,8 @@
               </nuxt-link>
 
               <button
-                @click="remove(condominium.id, index)"
-                aria-label="Delete condominium"
+                @click="remove(apartment.id, index)"
+                aria-label="Delete apartment"
               >
                 <icon
                   icon="trash"
@@ -80,25 +76,26 @@ export default {
 	},
 	data() {
 		return {
-			condominiums: []
+			apartments: []
 		}
 	},
 	methods: {
 		async remove(id, index) {
-			if(confirm('Are you sure you want to delete this condominium?')){
-				const response = await this.$remove(`/condominiums/${id}`)
+			if(confirm('Are you sure you want to delete this apartment?')){
+				const response = await this.$remove(`/apartments/${id}`)
 
 				if (response) {
-					this.condominiums.splice(index, 1)
+					this.apartments.splice(index, 1)
 				}
 			}
 		}
 	},
-	async asyncData({ app }) {
-		const condominiums = await app.$get('/condominiums')
+	async asyncData({ app, route }) {
+		const { block } = route.params
+		const apartments = await app.$get(`/apartments/${block}/blocks`)
 
 		return {
-			condominiums
+			apartments
 		}
 	}
 }

@@ -45,14 +45,14 @@
               <button aria-label="Edit item">
                 <icon
                   icon="pen"
-                  class="edit"
+                  class="c-warning"
                 />
               </button>
 
               <button aria-label="Delete item">
                 <icon
                   icon="trash"
-                  class="delete"
+                  class="c-error"
                 />
               </button>
             </li>
@@ -103,11 +103,10 @@
             v-slot="{ classes, errors }"
             rules="required"
           >
-            <control
+            <combo
               v-model="add.role"
               label="role"
               prefix="project-diagram"
-              select
               :options="add.roles"
               :classes="classes"
               :error="errors[0]"
@@ -118,11 +117,10 @@
             v-slot="{ classes, errors }"
             rules="required"
           >
-            <control
+            <combo
               v-model="add.agency"
               label="role"
               prefix="network-wired"
-              select
               :options="add.agencies"
               :classes="classes"
               :error="errors[0]"
@@ -133,11 +131,10 @@
             v-slot="{ classes, errors }"
             rules="required"
           >
-            <control
+            <combo
               v-model="add.status"
               label="role"
               prefix="signal"
-              select
               :options="add.statuses"
               :classes="classes"
               :error="errors[0]"
@@ -157,6 +154,7 @@ import {
 	ValidationProvider 
 } from 'vee-validate'
 import Control from '~/components/molecules/control'
+import Combo from '~/components/molecules/combo'
 
 export default {
 	components: {
@@ -164,7 +162,8 @@ export default {
 		Modal,
 		ValidationObserver,
 		ValidationProvider,
-		Control
+		Control,
+		Combo
 	},
 	data() {
 		return {

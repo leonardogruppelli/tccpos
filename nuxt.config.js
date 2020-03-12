@@ -1,8 +1,9 @@
+require('dotenv').config()
+
 const stylus = require('stylus-loader')
 const rupture = require('rupture')
 const prefixer = require('autoprefixer-stylus')
-
-require('dotenv').config()
+const url = process.env.API || 'http://localhost:3333/api/v1'
 
 export default {
 	mode: 'universal',
@@ -79,12 +80,12 @@ export default {
 			local: {
 				endpoints: {
 					login: {
-						url: '/login',
+						url: `${url}/login`,
 						method: 'post',
 						propertyName: 'token'
 					},
 					user: {
-						url: '/users',
+						url: `${url}/user`,
 						method: 'get',
 						propertyName: false
 					},
@@ -99,9 +100,7 @@ export default {
 	/*
   ** Axios module
   */
-	axios: {
-		baseURL: process.env.API || 'http://localhost:3333/api/v1'
-	},
+	axios: {},
 	/*
   ** FontAwesome module
   */

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="Create condominium">
+    <panel title="Create block">
       <validation-observer
         @submit="create"
         ref="observer"
@@ -12,35 +12,9 @@
           rules="required"
         >
           <control
-            v-model="form.name"
-            label="name"
-            prefix="pen"
-            :classes="classes"
-            :error="errors[0]"
-          />
-        </validation-provider>
-
-        <validation-provider
-          v-slot="{ classes, errors }"
-          rules="required"
-        >
-          <control
-            v-model="form.address"
-            label="address"
-            prefix="map-marker-alt"
-            :classes="classes"
-            :error="errors[0]"
-          />
-        </validation-provider>
-
-        <validation-provider
-          v-slot="{ classes, errors }"
-          rules="required"
-        >
-          <control
-            v-model="form.tel"
-            label="phone"
-            prefix="phone"
+            v-model="form.description"
+            label="description"
+            prefix="align-justify"
             :classes="classes"
             :error="errors[0]"
           />
@@ -82,9 +56,7 @@ export default {
 	data() {
 		return {
 			form: {
-				name: null,
-				address: null,
-				tel: null
+				description: null
 			},
 			loading: false
 		}
@@ -97,11 +69,11 @@ export default {
 
 			this.loading = true
 
-			const response = await this.$post('/condominiums', this.form)
+			const response = await this.$post('/blocks', this.form)
 
 			if (response) {
 				this.$refs.observer.reset()
-				this.$router.push('/condominiums')
+				this.$router.push('/blocks')
 			}
       
 			this.loading = false

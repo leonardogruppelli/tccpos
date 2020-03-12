@@ -46,7 +46,7 @@
         </nuxt-link>
       </li>
 
-      <li>
+      <li v-if="$auth.user.user_type_id == 1">
         <nuxt-link
           to="/condominiums"
           class="sidebar__item"
@@ -60,36 +60,36 @@
         </nuxt-link>
       </li>
 
-      <li>
+      <li v-if="$auth.user.user_type_id == 2">
         <nuxt-link
-          to="/todo"
+          to="/blocks"
           class="sidebar__item"
           exact
         >
           <icon
             class="sidebar__item__icon"
-            icon="check-circle"
+            icon="hotel"
           />
-          <span class="sidebar__item__text">todo</span>
+          <span class="sidebar__item__text">blocks</span>
+        </nuxt-link>
+      </li>
+
+      <li v-if="$auth.user.user_type_id > 1">
+        <nuxt-link
+          to="/communications"
+          class="sidebar__item"
+          exact
+        >
+          <icon
+            class="sidebar__item__icon"
+            icon="bell"
+          />
+          <span class="sidebar__item__text">communications</span>
         </nuxt-link>
       </li>
 
       <li class="sidebar__item sidebar__item--separator">
         <small>content</small>
-      </li>
-
-      <li>
-        <nuxt-link
-          to="/calendar"
-          class="sidebar__item"
-          exact
-        >
-          <icon
-            class="sidebar__item__icon"
-            icon="calendar"
-          />
-          <span class="sidebar__item__text">calendar</span>
-        </nuxt-link>
       </li>
 
       <li>

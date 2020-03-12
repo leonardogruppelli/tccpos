@@ -1,0 +1,25 @@
+.toggle
+
+  &__label
+    width 80px
+    height 40px
+    display flex
+    padding 5px
+    box-shadow inset 0 0 0 1px $secondary
+    border-radius 20px
+    
+    &--active
+      background-color $success
+      justify-content flex-end
+
+  &__input
+    display none
+
+  &__circle
+    width 30px
+    height 30px
+    background-color $secondary
+    border-radius 50%
+
+    ~/__label--active &
+      background-color $white

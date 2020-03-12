@@ -51,12 +51,26 @@
           v-slot="{ classes, errors }"
           rules="required"
         >
-          <control
+          <combo
             v-model="form.user_type_id"
             label="type"
             prefix="user-tag"
-            select
             :options="types"
+            :classes="classes"
+            :error="errors[0]"
+          />
+        </validation-provider>
+
+        <validation-provider
+          v-if="form.user_type_id > 1"
+          v-slot="{ classes, errors }"
+          rules="required"
+        >
+          <combo
+            v-model="form.condominium_id"
+            label="condominium"
+            prefix="building"
+            :options="condominiums"
             :classes="classes"
             :error="errors[0]"
           />
@@ -92,13 +106,12 @@
         </validation-provider>
       </validation-observer>
 
-      <nuxt-link to="/users">
-        <knob
-          title="Back"
-          background="black"
-          icon="arrow-left"
-        />
-      </nuxt-link>
+      <knob
+        @click.native="$router.go(-1)"
+        title="Back"
+        background="black"
+        icon="arrow-left"
+      />
 
       <knob
         @click.native="create"
@@ -115,6 +128,7 @@
 import Panel from '~/components/organisms/panel'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import Control from '~/components/molecules/control'
+import Combo from '~/components/molecules/combo'
 import Knob from '~/components/atoms/knob'
 
 export default {
@@ -123,6 +137,7 @@ export default {
 		ValidationObserver,
 		ValidationProvider,
 		Control,
+		Combo,
 		Knob
 	},
 	data() {
@@ -132,10 +147,12 @@ export default {
 				email: null,
 				identifier: null,
 				user_type_id: null,
+				condominium_id: null,
 				password: null,
 				confirm: null
 			},
 			types: [],
+			condominiums: [],
 			loading: false
 		}
 	},
@@ -163,9 +180,11 @@ export default {
 	},
 	async asyncData({ app }) {
 		const types = await app.$get('/combo/usertypes')
+		const condominiums = await app.$get('/combo/condominiums')
 		
 		return {
-			types
+			types,
+			condominiums
 		}
 	}
 }

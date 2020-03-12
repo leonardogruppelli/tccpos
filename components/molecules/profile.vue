@@ -3,7 +3,7 @@
     @click.stop="toggle"
     class="profile"
   >
-    <small class="profile__name">{{ $auth.user[0].full_name }}</small>
+    <small class="profile__name">{{ $auth.user.full_name }}</small>
     <img
       src="https://via.placeholder.com/150"
       alt="Profile Picture"

@@ -16,8 +16,8 @@ import {
 export default () => {
 	const config = {
 		classes: {
-			valid: 'control__input--success',
-			invalid: 'control__input--error'
+			valid: '--success',
+			invalid: '--error'
 		}
 	}
 

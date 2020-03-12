@@ -10,9 +10,9 @@
           <hamburguer />
         </li>
 
-        <li class="bar__item bar__item--search">
+        <!-- <li class="bar__item bar__item--search">
           <search />
-        </li>
+        </li> -->
         
         <li class="bar__item">
           <profile />
@@ -26,14 +26,14 @@
 import Logo from '~/assets/images/logo.svg?inline'
 import Hamburguer from '~/components/atoms/hamburguer'
 import Profile from '~/components/molecules/profile'
-import Search from '~/components/molecules/search'
+// import Search from '~/components/molecules/search'
 
 export default {
 	components: {
 		Logo,
 		Hamburguer,
-		Profile,
-		Search
+		Profile
+		// Search
 	}
 }
 </script>

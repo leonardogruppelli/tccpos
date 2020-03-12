@@ -1,48 +1,33 @@
 <template>
-  <div class="control">
+  <div class="combo">
     <div
-      ref="wrapper"
+      ref="select"
       @click="focus(true)"
-      @focus="focus(true, true)"
-      class="control__wrapper"
-      tabindex="0"
+      class="combo__wrapper"
     >
-      <label class="control__label">
+      <label class="combo__label">
         <input
-          v-if="mask"
-          ref="input"
-          @input="update($event.target.value)"
           :type="type"
-          :value="value"
-          v-mask="mask"
-          class="control__input"
+          :value="text"
+          class="combo__input"
           :class="{...classes, ...status}"
-        >
-
-        <input
-          v-else
-          ref="input"
-          @input="update($event.target.value)"
-          :type="type"
-          :value="value"
-          class="control__input"
-          :class="{...classes, ...status}"
+          readonly
         >
 
         <span
           v-if="prefix"
-          class="control__icon control__icon--prefix"
+          class="combo__icon combo__icon--prefix"
         >
           <icon :icon="prefix" />
         </span>
 
-        <span class="control__text">{{ label }}</span>
+        <span class="combo__text">{{ label }}</span>
 
-        <span class="control__bar" />
+        <span class="combo__bar" />
 
         <span
           v-if="loading"
-          class="control__icon"
+          class="combo__icon"
         >
           <icon
             icon="spinner"
@@ -51,33 +36,58 @@
         </span>
 
         <span
-          v-else-if="sufix"
-          class="control__icon"
+          v-else
+          class="combo__icon"
         >
-          <icon :icon="sufix" />
+          <icon icon="caret-down" />
         </span>
       </label>
+
+      <transition name="select">
+        <ul
+          v-show="focused"
+          class="combo__dropdown"
+        >
+          <li
+            @click="update(null)"
+            class="combo__dropdown__item"
+          >
+            Select an option...
+          </li>
+
+          <li
+            v-for="option in options"
+            @click="update(option.id, option.name)"
+            :key="option.id"
+            class="combo__dropdown__item"
+          >
+            {{ option.name }}
+          </li>
+        </ul>
+      </transition>
     </div>
 
-    <span class="control__error">{{ error }}</span>
+    <span class="combo__error">{{ error }}</span>
   </div>
 </template>
 
 <script>
-import { mask } from 'vue-the-mask'
-
 export default {
-	directives: {
-		mask
-	},
 	data() {
 		return {
+			text: this.value,
 			focused: false
 		}
 	},
 	props: {
 		value: {
 			required: true
+		},
+		options: {
+			type: Array,
+			default() {
+				return {}
+			} 
 		},
 		label: {
 			type: String,
@@ -114,6 +124,11 @@ export default {
 			default: null
 		}
 	},
+	watch: {
+		value(value) {
+			if (!value) this.text = null
+		}
+	},
 	computed: {
 		status() {
 			return {
@@ -129,22 +144,20 @@ export default {
 		document.removeEventListener('click', this.close)
 	},
 	methods: {
-		focus(value, tab) {
+		focus(value) {
 			this.focused = value
-			if (tab) {
-				this.$refs.input.focus()
-			}
 		},
 		close(event) {
 			const { target } = event
-			const wrapper = this.$refs.wrapper
+			const select = this.$refs.select
 			
-			if(!(wrapper == target || wrapper.contains(target))) {
+			if(!(select == target || select.contains(target))) {
 				this.focused = false
 			}
 		},
-		update(value) {
+		update(value, text) {
 			this.$emit('input', value)
+			this.text = text
 		}
 	}
 }
