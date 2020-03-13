@@ -96,7 +96,6 @@ export default {
 			default: null
 		},
 		mask: {
-			type: String,
 			default: null
 		},
 		loading: {

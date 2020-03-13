@@ -41,6 +41,7 @@
             v-model="form.tel"
             label="phone"
             prefix="phone"
+            :mask="['(##) ####-####', '(##) #####-####']"
             :classes="classes"
             :error="errors[0]"
           />

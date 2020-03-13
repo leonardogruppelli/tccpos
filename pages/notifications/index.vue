@@ -1,23 +1,22 @@
 <template>
   <div>
-    <panel
-      title="Apartments"
-      back="/blocks"
-    >
+    <panel title="Notifications">
       <div class="table">
         <div class="table__container">
           <table>
             <thead>
               <tr>
+                <th>Title</th>
                 <th>Description</th>
               </tr>
             </thead>
-            <tbody v-if="apartments.length">
+            <tbody v-if="notifications.length">
               <tr
-                v-for="apartment in apartments"
-                :key="apartment.id"
+                v-for="notification in notifications"
+                :key="notification.id"
               >
-                <td>{{ apartment.description }}</td>
+                <td>{{ notification.title }}</td>
+                <td>{{ notification.description }}</td>
               </tr>
             </tbody>
             <tbody v-else>
@@ -29,11 +28,11 @@
             </tbody>
           </table>
         </div>
-        
+
         <div class="table__actions">
           <ul class="table__actions__list">
             <li class="table__actions__item table__actions__item--add">
-              <nuxt-link :to="`/apartments/create/${$route.params.block}`">
+              <nuxt-link to="/notifications/create">
                 <icon
                   icon="plus"
                   class="add"
@@ -41,12 +40,12 @@
               </nuxt-link>
             </li>
 
-            <li
-              v-for="(apartment, index) in apartments"
-              :key="apartment.id"
+            <!-- <li
+              v-for="(notification, index) in notifications"
+              :key="notification.id"
               class="table__actions__item"
             >
-              <nuxt-link :to="`/apartments/update/${$route.params.block}/${apartment.id}`">
+              <nuxt-link :to="`/notifications/update/${notification.id}`">
                 <icon
                   icon="pen"
                   class="c-warning"
@@ -54,15 +53,15 @@
               </nuxt-link>
 
               <button
-                @click="remove(apartment.id, index)"
-                aria-label="Delete apartment"
+                @click="remove(notification.id, index)"
+                aria-label="Delete notification"
               >
                 <icon
                   icon="trash"
                   class="c-error"
                 />
               </button>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -79,26 +78,25 @@ export default {
 	},
 	data() {
 		return {
-			apartments: []
+			notifications: []
 		}
 	},
 	methods: {
 		async remove(id, index) {
-			if(confirm('Are you sure you want to delete this apartment?')){
-				const response = await this.$remove(`/apartments/${id}`)
+			if(confirm('Are you sure you want to delete this notification?')){
+				const response = await this.$remove(`/notifications/${id}`)
 
 				if (response) {
-					this.apartments.splice(index, 1)
+					this.notifications.splice(index, 1)
 				}
 			}
 		}
 	},
-	async asyncData({ app, route }) {
-		const { block } = route.params
-		const apartments = await app.$get(`/apartments/${block}/blocks`)
+	async asyncData({ app }) {
+		const notifications = await app.$get('/notifications')
 
 		return {
-			apartments
+			notifications
 		}
 	}
 }

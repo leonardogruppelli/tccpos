@@ -62,7 +62,7 @@
         </validation-provider>
 
         <validation-provider
-          v-if="form.user_type_id > 1"
+          v-if="$auth.user.user_type_id == 1 && form.user_type_id == 2"
           v-slot="{ classes, errors }"
           rules="required"
         >
@@ -77,6 +77,36 @@
         </validation-provider>
 
         <validation-provider
+          v-if="form.user_type_id == 5"
+          v-slot="{ classes, errors }"
+          rules="required"
+        >
+          <combo
+            v-model="block"
+            label="block"
+            prefix="hotel"
+            :options="blocks"
+            :classes="classes"
+            :error="errors[0]"
+          />
+        </validation-provider>
+
+        <validation-provider
+          v-if="apartments && block"
+          v-slot="{ classes, errors }"
+          rules="required"
+        >
+          <combo
+            v-model="form.apartment_id"
+            label="apartment"
+            prefix="home"
+            :options="apartments"
+            :classes="classes"
+            :error="errors[0]"
+          />
+        </validation-provider>
+
+        <!-- <validation-provider
           v-slot="{ classes, errors }"
           rules="required"
           name="password"
@@ -103,7 +133,7 @@
             :classes="classes"
             :error="errors[0]"
           />
-        </validation-provider>
+        </validation-provider> -->
       </validation-observer>
 
       <knob
@@ -148,15 +178,35 @@ export default {
 				identifier: null,
 				user_type_id: null,
 				condominium_id: null,
-				password: null,
-				confirm: null
+				apartment_id: null
+				// password: null,
+				// confirm: null
 			},
 			types: [],
 			condominiums: [],
+			block: null,
+			blocks: [],
+			apartments: [],
 			loading: false
 		}
 	},
+	watch: {
+		block(value) {
+			return this.search()
+		}
+	},
 	methods: {
+		async search() {
+			const block = this.block
+
+			this.form.apartment_id = null
+
+			if (block) {
+				this.apartments = await this.$get(`/combo/apartments/${block}`)
+			} else {
+				this.apartments = []
+			}
+		},
 		async create() {
 			try {
 				const valid = await this.$refs.observer.validate()
@@ -181,10 +231,12 @@ export default {
 	async asyncData({ app }) {
 		const types = await app.$get('/combo/usertypes')
 		const condominiums = await app.$get('/combo/condominiums')
+		const blocks = await app.$get('/combo/blocks')
 		
 		return {
 			types,
-			condominiums
+			condominiums,
+			blocks
 		}
 	}
 }

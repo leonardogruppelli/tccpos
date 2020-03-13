@@ -34,7 +34,10 @@
       </validation-provider>
     </validation-observer>
 
-    <toggle v-model="is" />
+    <toggle
+      v-model="is"
+      label="require confirmation"
+    />
     {{ is }}
   </div>
 </template>
@@ -57,7 +60,7 @@ export default {
 		return {
 			value: null,
 			select: null,
-			is: false,
+			is: 0,
 			options: [
 				{
 					id: 1,

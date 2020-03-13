@@ -1,12 +1,25 @@
 <template>
   <div>
-    <panel title="Update Block">
+    <panel title="Update communication">
       <validation-observer
         @submit="update"
         ref="observer"
         tag="form"
         class="form form--two"
       >
+        <validation-provider
+          v-slot="{ classes, errors }"
+          rules="required"
+        >
+          <control
+            v-model="form.title"
+            label="title"
+            prefix="heading"
+            :classes="classes"
+            :error="errors[0]"
+          />
+        </validation-provider>
+
         <validation-provider
           v-slot="{ classes, errors }"
           rules="required"
@@ -57,6 +70,7 @@ export default {
 	data() {
 		return {
 			form: {
+				title: null,
 				description: null
 			},
 			loading: false
@@ -73,11 +87,11 @@ export default {
         
 				const { id } = this.$route.params
 
-				const response = await this.$put(`/blocks/${id}`, this.form)
+				const response = await this.$put(`/communications/${id}`, this.form)
 
 				if (response) {
 					this.$refs.observer.reset()
-					this.$router.push('/blocks')
+					this.$router.push('/communications')
 				}
       
 				this.loading = false
@@ -90,11 +104,12 @@ export default {
 	async asyncData({ app, route }) {
 		const { id } = route.params
 
-		const block = await app.$get(`/blocks/${id}`)
+		const communication = await app.$get(`/communications/${id}`)
     
 		return {
 			form: {
-				description: block.description
+				title: communication.title,
+				description: communication.description
 			}
 		}
 	}

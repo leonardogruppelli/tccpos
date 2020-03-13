@@ -13,22 +13,35 @@
   cursor pointer
   overflow hidden
 
-  &--flat
-    padding rem(20)
+  &--rounded
+    width 60px
+    height 60px
     border-radius 50%
+
+  ~/--rounded &
+
+    &__icon
+      font-size rem(24)
+
+  &--flat
+    width 40px
+    height 40px
 
   ~/--flat &
 
     &__icon
       font-size rem(20)
 
-  &:not(&--flat)
+  &:not(&--rounded)
     padding rem(10 15)
 
-  ~/:not(&--flat) &
+  ~/:not(&--rounded) &
     
     &__icon
       margin-right rem(10)
+
+  &--no-margin
+    margin-top 0
 
   &__spinner
     width 100%

@@ -17,7 +17,6 @@
               >
                 <td>{{ communication.title }}</td>
                 <td>{{ communication.description }}</td>
-                <td>{{ communication.tel }}</td>
               </tr>
             </tbody>
             <tbody v-else>
@@ -41,7 +40,7 @@
               </nuxt-link>
             </li>
 
-            <li
+            <!-- <li
               v-for="(communication, index) in communications"
               :key="communication.id"
               class="table__actions__item"
@@ -62,7 +61,7 @@
                   class="c-error"
                 />
               </button>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

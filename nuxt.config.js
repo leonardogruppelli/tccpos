@@ -11,7 +11,7 @@ export default {
   ** Headers of the page
   */
 	head: {
-		title: 'NuxtQL',
+		title: 'Callmaí — ADMIN',
 		meta: [
 			{
 				charset: 'utf-8' 
@@ -23,7 +23,7 @@ export default {
 			{
 				hid: 'description',
 				name: 'description',
-				content: 'Nuxt.js App with GraphQL' 
+				content: 'Callmaí — ADMINISTRATION SYSTEM' 
 			}
 		],
 		link: [
@@ -53,8 +53,7 @@ export default {
 	plugins: [
 		'~plugins/axios',
 		'~plugins/validation',
-		'~plugins/directives',
-		'~plugins/mixins'
+		'~plugins/directives'
 	],
 	/*
   ** Nuxt.js dev-modules

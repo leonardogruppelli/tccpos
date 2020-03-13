@@ -1,5 +1,9 @@
 <template>
   <div class="toggle">
+    <p class="toggle__text">
+      {{ label }}
+    </p>
+
     <label
       class="toggle__label"
       :class="status"
@@ -20,8 +24,12 @@
 export default {
 	props: {
 		value: {
-			type: Boolean,
-			default: false
+			type: Number,
+			default: 0
+		},
+		label: {
+			type: String,
+			default: null
 		}
 	},
 	computed: {
@@ -33,7 +41,7 @@ export default {
 	},
 	methods: {
 		update(value) {
-			this.$emit('input', value)
+			this.$emit('input', value ? 1 : 0)
 		}
 	}
 }

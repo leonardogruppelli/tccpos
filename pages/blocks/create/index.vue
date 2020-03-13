@@ -5,7 +5,7 @@
         @submit="create"
         ref="observer"
         tag="form"
-        class="form form--three"
+        class="form form--two"
       >
         <validation-provider
           v-slot="{ classes, errors }"

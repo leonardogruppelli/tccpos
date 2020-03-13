@@ -1,6 +1,6 @@
 <template>
   <div>
-    <panel title="Create communication">
+    <panel title="Create notification">
       <validation-observer
         @submit="create"
         ref="observer"
@@ -38,21 +38,6 @@
           rules="required"
         >
           <combo
-            v-model="form.send_type"
-            label="send to"
-            prefix="tag"
-            :options="types"
-            :classes="classes"
-            :error="errors[0]"
-          />
-        </validation-provider>
-
-        <validation-provider
-          v-if="form.send_type > 1 && blocks"
-          v-slot="{ classes, errors }"
-          rules="required"
-        >
-          <combo
             v-model="block"
             label="block"
             prefix="hotel"
@@ -63,12 +48,12 @@
         </validation-provider>
 
         <validation-provider
-          v-if="form.send_type > 2 && apartments && block"
+          v-if="apartments && block"
           v-slot="{ classes, errors }"
           rules="required"
         >
           <combo
-            v-model="apartment"
+            v-model="form.send_to"
             label="apartment"
             prefix="home"
             :options="apartments"
@@ -76,11 +61,6 @@
             :error="errors[0]"
           />
         </validation-provider>
-
-        <toggle
-          v-model="form.confirms"
-          label="confirms"
-        />
       </validation-observer>
 
       <knob
@@ -106,7 +86,6 @@ import Panel from '~/components/organisms/panel'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import Control from '~/components/molecules/control'
 import Combo from '~/components/molecules/combo'
-import Toggle from '~/components/atoms/toggle'
 import Knob from '~/components/atoms/knob'
 
 export default {
@@ -116,7 +95,6 @@ export default {
 		ValidationProvider,
 		Control,
 		Combo,
-		Toggle,
 		Knob
 	},
 	data() {
@@ -124,78 +102,29 @@ export default {
 			form: {
 				title: null,
 				description: null,
-				send_type: null,
-				send_to: null,
-				confirms: 0
+				send_to: null
 			},
-			type: null,
-			types: [
-				{
-					id: 1,
-					name: 'Condomínio'
-				},
-				{
-					id: 2,
-					name: 'Bloco'
-				},
-				{
-					id: 3,
-					name: 'Apartamento'
-				}
-			],
 			block: null,
 			blocks: [],
-			apartment: null,
 			apartments: [],
 			loading: false
 		}
 	},
 	watch: {
-		form: {
-			handler(value) {
-				if (value.send_type != this.type) {
-					this.type = value.send_type
-					return this.search()
-				}
-			},
-			deep: true
-		},
-		async block(value) {
-			if (this.form.send_type == 2) {
-				this.form.send_to = value
-			}
-
+		block(value) {
 			return this.search()
-		},
-		async apartment(value) {
-			if (this.form.send_type == 3) {
-				this.form.send_to = value
-			}
 		}
 	},
 	methods: {
 		async search() {
-			const type = this.form.send_type
 			const block = this.block
-			const apartments = this.apartments
 
-			if (type == 1) {
-				this.block = null
-			}
-      
-			if (type == 2) {
-				this.form.send_to = this.block
-			}
+			this.form.send_to = null
 
-			if (type < 3 || (type == 3 && !block)) {
-				this.apartment = null
-				this.apartments = []
-				return
-			}
-
-			if (type == 3 && block) {
-				this.apartment = null
+			if (block) {
 				this.apartments = await this.$get(`/combo/apartments/${block}`)
+			} else {
+				this.apartments = []
 			}
 		},
 		async create() {
@@ -205,11 +134,11 @@ export default {
 
 			this.loading = true
 
-			const response = await this.$post('/communications', this.form)
+			const response = await this.$post('/notifications', this.form)
 
 			if (response) {
 				this.$refs.observer.reset()
-				this.$router.push('/communications')
+				this.$router.push('/notifications')
 			}
       
 			this.loading = false

@@ -35,6 +35,10 @@ export default {
 			type: String,
 			default: null
 		},
+		flat: {
+			type: Boolean,
+			default: false
+		},
 		full: {
 			type: Boolean,
 			default: false
@@ -47,6 +51,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		noMargin: {
+			type: Boolean,
+			default: false
+		},
 		loading: {
 			type: Boolean,
 			default: false
@@ -55,10 +63,12 @@ export default {
 	computed: {
 		status() {
 			return [
-				!this.title && this.icon && 'knob--flat',
+				!this.title && this.icon && 'knob--rounded',
+				this.flat && 'knob--flat',
 				this.full && 'knob--full',
 				this.center && 'knob--center',
 				this.right && 'knob--right',
+				this.noMargin && 'knob--no-margin',
 				this.loading && 'knob--loading',
 				`bg-${this.background}`
 			]

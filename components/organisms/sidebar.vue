@@ -82,9 +82,23 @@
         >
           <icon
             class="sidebar__item__icon"
-            icon="bell"
+            icon="envelope"
           />
           <span class="sidebar__item__text">communications</span>
+        </nuxt-link>
+      </li>
+
+      <li v-if="$auth.user.user_type_id > 1">
+        <nuxt-link
+          to="/notifications"
+          class="sidebar__item"
+          exact
+        >
+          <icon
+            class="sidebar__item__icon"
+            icon="bell"
+          />
+          <span class="sidebar__item__text">notifications</span>
         </nuxt-link>
       </li>
 

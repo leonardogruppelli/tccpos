@@ -1,25 +1,40 @@
 .toggle
+  margin rem(5 0)
+  position relative
+
+  &__text
+    position absolute
+    top 0
+    color $terciary
+    font-size rem(12)
+    transform translateY(-50%)
 
   &__label
-    width 80px
-    height 40px
-    display flex
-    padding 5px
-    box-shadow inset 0 0 0 1px $secondary
+    width 60px
+    height 30px
+    display inline-block
+    position relative
+    margin-top rem(10)
+    background-color $secondary
     border-radius 20px
-    
+    transition background-color 0.2s ease-in
+
     &--active
-      background-color $success
-      justify-content flex-end
+      background-color $primary
 
   &__input
     display none
 
   &__circle
-    width 30px
-    height 30px
-    background-color $secondary
+    width 20px
+    height 20px
+    background-color $white
     border-radius 50%
+    position absolute
+    top 50%
+    left 5px
+    transform translateY(-50%)
+    transition left 0.1s ease-out
 
     ~/__label--active &
-      background-color $white
+      left calc(100% - 25px)
