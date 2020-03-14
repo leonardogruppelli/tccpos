@@ -43,6 +43,11 @@
         </validation-provider>
       </validation-observer>
 
+      <span
+        v-if="error"
+        class="auth__error"
+      >{{ error }}</span>
+
       <knob
         @click.native="login"
         icon="sign-in-alt"
@@ -73,12 +78,15 @@ export default {
 				email: null,
 				password: null
 			},
-			loading: false
+			loading: false,
+			error: null
 		}
 	},
 	methods: {
 		async login() {
 			try {
+				this.error = ''
+        
 				this.loading = true
         
 				const valid = await this.$refs.observer.validate()
@@ -90,6 +98,7 @@ export default {
 				})
 			} catch (err) {
 				console.log(err)
+				this.error = 'invalid email or password...'
 			} finally {
 				this.loading = false
 			}

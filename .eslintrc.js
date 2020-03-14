@@ -19,10 +19,6 @@ module.exports = {
       'error',
       'tab'
     ],
-    'linebreak-style': [
-      'error',
-      'unix'
-    ],
     'comma-dangle': [
       'error',
       'never'
