@@ -1,5 +1,5 @@
 export default ({ $axios, error }, inject) => {
-	const url = process.env.API || 'http://localhost:3333/api/v1'
+	const url = process.env.API || 'https://callmai-admin.herokuapp.com/api/v1'
 
 	inject('get', async (endpoint, main = false) => {
 		try {
