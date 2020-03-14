@@ -1,7 +1,7 @@
 <template>
   <div class="settings">
     <ul class="settings__list">
-      <li>
+      <!-- <li>
         <nuxt-link
           to="/settings"
           class="settings__list__item"
@@ -20,7 +20,7 @@
         </nuxt-link>
       </li>
 
-      <hr>
+      <hr> -->
 
       <li>
         <button
