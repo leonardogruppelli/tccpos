@@ -102,7 +102,7 @@
         </nuxt-link>
       </li>
 
-      <li class="sidebar__item sidebar__item--separator">
+      <!-- <li class="sidebar__item sidebar__item--separator">
         <small>content</small>
       </li>
 
@@ -132,7 +132,7 @@
           />
           <span class="sidebar__item__text">help</span>
         </nuxt-link>
-      </li>
+      </li> -->
     </ul>
   </aside>
 </template>
