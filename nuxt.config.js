@@ -3,7 +3,7 @@ require('dotenv').config()
 const stylus = require('stylus-loader')
 const rupture = require('rupture')
 const prefixer = require('autoprefixer-stylus')
-const url = process.env.API || 'http://localhost:3333/api/v1'
+const url = process.env.API || 'https://callmai.herokuapp.com/api/v1'
 
 export default {
 	mode: 'universal',
